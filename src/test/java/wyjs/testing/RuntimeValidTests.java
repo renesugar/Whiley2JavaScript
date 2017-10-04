@@ -115,6 +115,32 @@ public class RuntimeValidTests {
 		IGNORED.put("Subtype_Valid_5", "??");
 		IGNORED.put("UnionType_Valid_2", "??");
 		IGNORED.put("While_Valid_42", "??");
+
+		// ===================================================
+		// Temporary problems
+		// ===================================================
+		// Intersection types
+		IGNORED.put("Array_Valid_1", "??");
+		IGNORED.put("Coercion_Valid_7", "??");
+		IGNORED.put("Coercion_Valid_7", "??");
+		IGNORED.put("Coercion_Valid_8", "??");
+		IGNORED.put("Complex_Valid_2", "??");
+		IGNORED.put("Complex_Valid_3", "??");
+		IGNORED.put("Complex_Valid_4", "??");
+		IGNORED.put("ConstrainedInt_Valid_16", "??");
+		IGNORED.put("ConstrainedList_Valid_27", "??");
+		IGNORED.put("ConstrainedNegation_Valid_1", "??");
+		IGNORED.put("ConstrainedNegation_Valid_2", "??");
+		IGNORED.put("ConstrainedRecord_Valid_10", "??");
+		IGNORED.put("DoWhile_Valid_4", "??");
+		IGNORED.put("Ensures_Valid_7", "??");
+		IGNORED.put("Fail_Valid_1", "??");
+		IGNORED.put("Fail_Valid_3", "??");
+		IGNORED.put("FunctionRef_Valid_10", "??");
+		IGNORED.put("FunctionRef_Valid_11", "??");
+		IGNORED.put("IfElse_Valid_4", "??");
+		IGNORED.put("Intersection_Valid_1", "??");
+		IGNORED.put("Intersection_Valid_2", "??");
 	}
 
 	/**

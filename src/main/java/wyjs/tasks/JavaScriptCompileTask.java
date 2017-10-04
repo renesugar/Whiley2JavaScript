@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import wybs.lang.Build;
@@ -31,6 +32,8 @@ import wyil.type.TypeSystem;
 import wyc.lang.WhileyFile;
 import wyjs.core.JavaScriptFile;
 import wyjs.io.JavaScriptFileWriter;
+import wyll.core.LowLevelDriver;
+import wyll.core.WyllFile;
 
 public class JavaScriptCompileTask implements Build.Task {
 	/**
@@ -109,16 +112,12 @@ public class JavaScriptCompileTask implements Build.Task {
 	}
 
 	private JavaScriptFile build(Path.Entry<WhileyFile> source, Path.Entry<JavaScriptFile> target) throws IOException {
-		// FIXME: this is a fairly temporary solution at the moment which just
-		// turns the WyIL file directly into a string. A more useful solution
-		// will be to generate an intermediate file representing JavaScript in
-		// an AST. This would enable, for example, better support for different
-		// standards. It would also enable minification, and allow support for
-		// different module systems (e.g. CommonJS).
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		JavaScriptFileWriter jsfw = new JavaScriptFileWriter(project,typeSystem,bos);
-		jsfw.setDebug(debug);
-		jsfw.apply(source.read());
-		return new JavaScriptFile(target,bos.toByteArray());
+		// Transform Whiley source file into low-level representation
+		JavaScriptCompiler compiler = new JavaScriptCompiler();
+		List<JavaScriptFile.Declaration> decls = new LowLevelDriver(typeSystem,compiler).visitWhileyFile(source.read());
+		JavaScriptFile jsf = new JavaScriptFile(target);
+		jsf.getDeclarations().addAll(decls);
+		return jsf;
+
 	}
 }
