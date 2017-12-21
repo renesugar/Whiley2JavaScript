@@ -367,6 +367,11 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 	}
 
 	@Override
+	public Term visitArrayInitialiser(Array type, Term length) {
+		return new JavaScriptFile.ArrayInitialiser(new ArrayList<>());
+	}
+
+	@Override
 	public Term visitArrayGenerator(Array type, Term value, Term length) {
 		JavaScriptFile.Term runtime = new JavaScriptFile.VariableAccess("Wy");
 		ArrayList<Term> arguments = new ArrayList<>();
@@ -387,11 +392,6 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 			source = new JavaScriptFile.RecordAccess(source, "data");
 		}
 		return new JavaScriptFile.ArrayAccess(source, index);
-	}
-
-	@Override
-	public Term visitArrayCoercion(Int target, Int actual, Term expr) {
-		throw new UnsupportedOperationException("implement me!");
 	}
 
 	@Override
