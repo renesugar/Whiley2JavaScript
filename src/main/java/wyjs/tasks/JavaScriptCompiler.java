@@ -480,7 +480,7 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 
 	@Override
 	public Type.Recursive visitTypeRecursive(String name) {
-		throw new UnsupportedOperationException("implement me!");
+		return new LowLevelType.Recursive();
 	}
 
 	@Override
