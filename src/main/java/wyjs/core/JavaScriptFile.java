@@ -310,24 +310,6 @@ public class JavaScriptFile extends AbstractCompilationUnit {
 		}
 	}
 
-	public static class RecordAccess implements Term {
-		private Term src;
-		private String field;
-
-		public RecordAccess(Term src, String field) {
-			this.src = src;
-			this.field = field;
-		}
-
-		public Term getSource() {
-			return src;
-		}
-
-		public String getField() {
-			return field;
-		}
-	}
-
 	public static class IfElse implements Term {
 		private List<Case> cases;
 

@@ -389,7 +389,7 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 	public Term visitArrayAccess(List<Array> type, Term source, Term index) {
 		if (type.size() > 1) {
 			// indicates an effective array access, that is a union of array values.
-			source = new JavaScriptFile.RecordAccess(source, "data");
+			source = new JavaScriptFile.PropertyAccess(source, "data");
 		}
 		return new JavaScriptFile.ArrayAccess(source, index);
 	}
@@ -417,7 +417,14 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 
 	@Override
 	public Term visitReferenceInitialiser(Reference type, Term operand) {
-		throw new UnsupportedOperationException("implement me!");
+		ArrayList<Pair<String,Term>> fields = new ArrayList<>();
+		fields.add(new Pair<>("ref",operand));
+		return new JavaScriptFile.ObjectLiteral(fields);
+	}
+
+	@Override
+	public Term visitReferenceAccess(Reference type, Term operand) {
+		return new JavaScriptFile.PropertyAccess(operand, "ref");
 	}
 
 	@Override
@@ -430,12 +437,12 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 
 	@Override
 	public Term visitUnionLeave(Union type, int tag, Term expr) {
-		return new JavaScriptFile.RecordAccess(expr, "data");
+		return new JavaScriptFile.PropertyAccess(expr, "data");
 	}
 
 	@Override
 	public Term visitUnionAccess(Union type, Term expr) {
-		return new JavaScriptFile.RecordAccess(expr, "tag");
+		return new JavaScriptFile.PropertyAccess(expr, "tag");
 	}
 
 	@Override
@@ -470,7 +477,7 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 
 	@Override
 	public Type.Reference visitTypeReference(Type element) {
-		throw new UnsupportedOperationException("implement me!");
+		return new LowLevelType.Reference((LowLevelType) element);
 	}
 
 	@Override

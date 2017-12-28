@@ -238,8 +238,6 @@ public class JavaScriptFilePrinter {
 			writeAssignment((JavaScriptFile.Assignment) term);
 		} else if(term instanceof JavaScriptFile.Constant) {
 			writeConstant((JavaScriptFile.Constant) term);
-		} else if(term instanceof JavaScriptFile.RecordAccess) {
-			writeRecordAccess((JavaScriptFile.RecordAccess) term);
 		} else if(term instanceof JavaScriptFile.Invoke) {
 			writeInvoke((JavaScriptFile.Invoke) term);
 		} else if(term instanceof JavaScriptFile.IndirectInvoke) {
@@ -304,12 +302,6 @@ public class JavaScriptFilePrinter {
 		} else {
 			out.print(term.getValue());
 		}
-	}
-
-	private void writeRecordAccess(JavaScriptFile.RecordAccess term) {
-		writeExpressionWithBraces(term.getSource());
-		out.print(".");
-		out.print(term.getField());
 	}
 
 	private void writeInvoke(JavaScriptFile.Invoke term) {
