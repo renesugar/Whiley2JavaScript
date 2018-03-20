@@ -430,7 +430,7 @@ public class JavaScriptCompiler implements LowLevel.Visitor<Declaration, Term, T
 	@Override
 	public Term visitUnionEnter(Union type, int tag, Term expr) {
 		ArrayList<Pair<String,Term>> fields = new ArrayList<>();
-		fields.add(new Pair<>("tag",new JavaScriptFile.Constant(tag)));
+		fields.add(new Pair<String,Term>("tag",new JavaScriptFile.Constant(tag)));
 		fields.add(new Pair<>("data",expr));
 		return new JavaScriptFile.ObjectLiteral(fields);
 	}
